@@ -1,0 +1,64 @@
+Problem Solved:https://www.geeksforgeeks.org/problems/smallest-window-in-a-string-containing-all-the-characters-of-another-string-1587115621/1
+Code:
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution
+{
+    public:
+    //Function to find the smallest window in the string s consisting
+    //of all the characters of string p.
+    string smallestWindow (string s, string p)
+    {
+        if(p.length()>s.length()) return "-1";
+        vector<int>S(26,0);
+        vector<int>P(26,0);
+        int cnt=0,cnt2=0,n=s.length(),m=p.length(),j=0,start=-1,end=-1,len=INT_MAX;
+        for(int i=0;i<m;i++){
+            char x= p.at(i);
+            P[x - 'a']++;
+            if(P[x - 'a']==1 )cnt++;
+        }
+        
+        for(int i=0;i<n;i++){
+            char x = s.at(i);
+            S[x-'a']++;
+            if(S[x-'a'] == P[x-'a'] )cnt2++;
+            if(cnt2==cnt){
+                while(S[s.at(j)-'a'] > P[s.at(j)-'a'])S[s.at(j++)-'a']--;
+                
+                if(len>i-j+1){
+                    start=j;
+                    end=i;
+                    len=i-j+1;
+                }
+            }
+        }
+        if(start ==-1)return "-1";
+        return s.substr(start,len);
+    }
+};
+
+//{ Driver Code Starts.
+int main()
+ {
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        string pat;
+        cin>>pat;
+        Solution obj;
+        cout<<obj.smallestWindow(s, pat)<<endl;
+        
+    }
+	return 0;
+}
+// } Driver Code Ends
+Time Complexity:O(N)
+Space Complexity:O(Len P=N)
