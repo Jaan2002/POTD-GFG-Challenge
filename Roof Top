@@ -1,0 +1,56 @@
+Problem Solved:https://www.geeksforgeeks.org/problems/roof-top-1587115621/1
+Code:
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+
+class Solution {
+  public:
+    // Function to find maximum number of consecutive steps
+    // to gain an increase in altitude with each step.
+    int maxStep(vector<int>& arr) {
+        int Maxjump=0;
+        int currjump=0;
+        
+        for(int i=0;i<arr.size()-1;i++){
+            
+                if(arr[i] < arr[i+1]){
+                    currjump++;
+                    
+                }else{
+                    Maxjump= max(Maxjump,currjump);
+                    currjump=0;
+                }
+            
+        }
+        Maxjump= max(Maxjump,currjump);
+        return Maxjump;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        vector<int> arr;
+        string input;
+        getline(cin, input); // Read the entire line for the array elements
+        stringstream ss(input);
+        int number;
+        while (ss >> number) {
+            arr.push_back(number);
+        }
+        Solution ob;
+        cout << ob.maxStep(arr) << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
+Time Complexity:O(N)
+Space Complexity:O(1)
